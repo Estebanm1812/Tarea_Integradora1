@@ -23,7 +23,7 @@ public class TareaIntegradora{
 			sc.nextLine();
 		}
 		
-		String [] productsNames = new String[quantity]; 
+		String [] productsNames ;//= new String[quantity]; 
 		double [] productsQuantity = new double[quantity];
 		double [] productsPriceHomeCenter = new double[quantity];
 		double [] productsPriceInTheCenter = new double[quantity];
@@ -42,10 +42,9 @@ public class TareaIntegradora{
 		double totalPriceWithLabourAndDeliveryInHomeCenter =0;
 		double totalPriceWithLabourAndDeliveryInCenter =0;
 		double totalPriceWithLabourAndDeliveryInNeighborhood =0;
-		
+		 
 		
 		productsNames = getNames(quantity);
-		
 		productsQuantity = quantityToUse(productsNames);
 		//Precios segun el local
 		productsPriceHomeCenter = toKnowPriceInHomecenter(productsNames);
@@ -79,6 +78,9 @@ public class TareaIntegradora{
 		totalPriceWithLabourAndDeliveryInHomeCenter = toKnowFullPriceWithLabour(totalPriceInHomeCenterWithDelivery, useOfTheMaterial, HOMECENTER);
 		totalPriceWithLabourAndDeliveryInCenter = toKnowFullPriceWithLabour(totalPriceInTheCenterWithDelivery, useOfTheMaterial, CENTER);
 		totalPriceWithLabourAndDeliveryInNeighborhood = toKnowFullPriceWithLabour(totalPriceInTheNeighborhoodWithDelivery, useOfTheMaterial, NEIGHBORHOOD);
+		//desplegar lista de materiales segun el uso
+		System.out.println("A continuacion la lista de materiales segun su utilidad");
+		toShowItsUse(productsNames, useOfTheMaterial);
 	}
 	
 	public static int toKnowTheUbication(){
@@ -295,11 +297,33 @@ public class TareaIntegradora{
 		System.out.println("El precio total con mano de obra y envio en: " + place + " es de:" + price);
 		return price;
 	}
-	
-	
-	
-	
-	//public static toShowWhichUseWillHave(String [] names,)
+	public static void toShowItsUse(String [] names, WorkType [] inWhatWasUsed){
+		int choice=0;
+		do{
+			System.out.println("ingrese que tipo queiere saber" + "\n :0 para Terminar \n :1 Obra Negra \n 2: Obra Blanco \n 3:Pintura");
+			choice = sc.nextInt();
+			sc.nextLine();
+			if((choice!=0) && (choice!=1) && (choice!=2) && (choice!=3)){
+				System.out.println("numero invalido, intente de nuevo");
+			}else{
+				System.out.println("la Lista es la siguiente");
+				for(int i=0; i < names.length; i++){
+					switch(choice){
+						case 1:	if(inWhatWasUsed[i] == WorkType.BLACK)System.out.println(names[i]);
+						break;
+						case 2: if(inWhatWasUsed[i] == WorkType.WHITE)System.out.println(names[i]);
+						break;
+						case 3: if(inWhatWasUsed[i] == WorkType.PAINT)System.out.println(names[i]);
+						break;
+			
+					}
+				}
+			}
+		}while(choice!=0);
+		
+					
+		
+	}
 }
 
 
